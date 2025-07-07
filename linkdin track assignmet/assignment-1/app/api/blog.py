@@ -34,7 +34,7 @@ async def create_blog(data: BlogRequest, user=Depends(get_current_user)):
         }
     }
 
-@router.get("/blogs")
+@router.get("/blogs",tags=["Blogs"])
 async def get_all_blogs():
     with get_db() as conn:
         cursor = conn.cursor()

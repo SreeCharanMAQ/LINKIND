@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from starlette.middleware.sessions import SessionMiddleware
 import os
 
+
 load_dotenv()
 
 app = FastAPI(docs_url="/docs")
@@ -22,4 +23,4 @@ app.include_router(blog.router)
 
 @app.get("/")
 def home():
-    return {"msg": "Welcome! Visit /login to use Google OAuth"}
+    return {"msg": "Welcome! Visit /login to visi the assignment-1 ."}

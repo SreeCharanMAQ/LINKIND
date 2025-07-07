@@ -4,7 +4,7 @@ from app.database import get_db
 
 router = APIRouter()
 
-@router.get('/profile')
+@router.get('/profile',tags=['Get-profile-and-user-data'])
 async def get_profile(request: Request):
     user = request.session.get('user')
     if not user:
@@ -21,7 +21,7 @@ async def get_profile(request: Request):
         user_data = dict(row)
         return JSONResponse({"user": user_data})
 
-@router.get('/users')
+@router.get('/users',tags=['Get-profile-and-user-data'])
 async def list_users():
     with get_db() as conn:
         cursor = conn.cursor()

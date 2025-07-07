@@ -41,7 +41,7 @@ def get_db():
     finally:
         conn.close()
 def create_or_update_user(google_id: str, name: str, email: str, picture: str = None):
-    """Create a new user or update existing user in the database"""
+    
     with get_db() as conn:
         cursor = conn.cursor()
 
@@ -67,3 +67,26 @@ def create_or_update_user(google_id: str, name: str, email: str, picture: str = 
 
         conn.commit()
         return user_id
+
+def create_user_with_password(name: str, email: str, password_hash: str):
+    
+    with get_db() as conn:
+        cursor = conn.cursor()
+        
+        try:
+            cursor.execute("""
+                INSERT INTO users (name, email, password_hash) 
+                VALUES (?, ?, ?)
+            """, (name, email, password_hash))
+            user_id = cursor.lastrowid
+            conn.commit()
+            return user_id
+        except sqlite3.IntegrityError:
+            raise ValueError("Email already exists")
+
+def get_user_by_email(email: str):
+    
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
+        return cursor.fetchone()

@@ -6,3 +6,4 @@ authlib
 celery
 pydantic
 pyjwt
+authlib

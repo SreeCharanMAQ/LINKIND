@@ -6,7 +6,7 @@ SECRET = os.getenv("JWT_SECRET", "supersecretjwtkey")
 
 def create_jwt_token(data: dict, expires_in: int = 3600):
     to_encode = data.copy()
-    expire = datetime.utcnow() + timedelta(seconds=expires_in)
+    expire = datetime.now() + timedelta(seconds=expires_in)
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET, algorithm="HS256")
 

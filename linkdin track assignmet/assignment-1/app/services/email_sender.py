@@ -3,7 +3,6 @@ import os
 from dotenv import load_dotenv
 import smtplib
 from email.mime.text import MIMEText
-
 load_dotenv()
 CELERY_BROKER_URL = os.getenv("REDIS_URL", "redis://localhost:6379/0")
 celery_app = Celery("worker", broker=CELERY_BROKER_URL)
@@ -26,7 +25,7 @@ def send_email_notification(to_email, subject, content):
             message = f"Subject: {subject}\n\n{content}"
             server.sendmail(msg["To"], to_email, msg.as_string())
 
-        print("✅ Mail sent successfully!")
+        print("Mail sent successfully!")
 
     except Exception as e:
-        print("❌ Error sending mail:", e)
+        print("Error sending mail:", e)
